@@ -1,0 +1,70 @@
+extends layout
+
+block content
+
+  - let words = ["one", "two", "three"];
+  // below is a block-level unbuffered code block - https://github.com/pugjs/pug/issues/502#issuecomment-137893041
+  -
+    let negative_traits = [
+      "Aggressive","Angry","Disloyal","Fanatical","Grumpy","Moody","Impulsive","Jelaous",
+      "Lazy","Picky","Rude","Uptight","Worrisome",
+    ];
+  
+  - 
+    let positive_traits = [
+      "Honest","Loyal","Respectful","Responsible","Compassionate","Fair","Forgiving","Authentic",
+      "Coraugeus","Generous","Polite","Kind","Loving","Optimistic","Reliable",
+      "Disciplined",
+    ];
+
+  - 
+    let hlavni_mesta = [
+      "Prague","London","New York","Amsterdam","Dallas","Houston","Amarillo","Canyon",
+      "Hereford","Berlin","Frankfurt","Madrid","Paris","Manchester","Milan",
+      "Rome",
+    ]; 
+
+  div.container
+    div.jumbotron.jumbotron-fluid
+      h1= title
+      p Welcome to #{title}
+      a(href="http://localhost:3000") Home
+  
+  div.container
+    div.row
+      h2.col-3 Name Entry
+  div.container
+    form(method="POST" action="")
+
+      div.form-group.col-md-3
+        label(for='fname') First Name:
+        input#fname.form-control(type="text", placeholder="Type first name here..." name='fname')
+
+      div.form-group.col-md-3
+        label(for='lname') Last Name:
+        input#lname.form-control(type="text", placeholder="Type last name here..." name='lname')
+
+      div.form-group.col-md-3
+        label(for='ptraits') Positive Traits:
+        select#ptraits.form-contol(name="ptraits")
+          each trait in positive_traits
+            option= trait
+            
+      div.form-group.col-md-3
+        label(for='ntraits') Negative Traits:
+        select#ntraits.form-contol(name="ntraits")
+          each trait in negative_traits
+            option= trait
+
+      div.form-group.col-md-3
+        label(for='cities') Mesta:
+        select#cities.form-contol(name="cities")
+          each city in hlavni_mesta
+            option= city
+
+      button.btn.btn-outline-primary(type='submit') Submit
+      
+  if errors
+    ul
+      for error in errors
+        li!= error.msg
